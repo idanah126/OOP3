@@ -12,9 +12,9 @@ public class Warrior extends Player {
     public void levelUp() {
         super.levelUp();
         remainingCoolDown = 0;
-        healthPool += (5 * playerLevel);
-        attackPoints += (2 * playerLevel);
-        defencePoints += playerLevel;
+//        healthPool += (5 * playerLevel);
+//        attackPoints += (2 * playerLevel);
+//        defencePoints += playerLevel;
     }
 
     @Override

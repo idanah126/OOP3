@@ -1,3 +1,3 @@
 public interface Visited {
-    public boolean accept(Visitor v);
+    public void accept(Visitor v);
 }

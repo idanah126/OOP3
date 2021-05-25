@@ -1,12 +1,26 @@
-public class UI implements Observer {
+import java.util.List;
 
-    private Board board;
-    public UI(){
-        board.addObserver(this);
+public class UI implements BoardObserver, UIObservable {
+
+    UIObserver boardController;
+
+    public UI(List<String> lines){
+        boardController = new BoardController(lines, this);
+        addObserver(boardController);
     }
 
     @Override
-    public void update(int i1, int i2) {
+    public void addObserver(UIObserver o) {
+        boardController = o;
+    }
+
+    @Override
+    public void notifyObserver(char c) {
+        boardController.update(c);
+    }
+
+    @Override
+    public void update(List<String> lines) {
 
     }
 }

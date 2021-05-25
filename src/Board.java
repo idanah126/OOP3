@@ -1,14 +1,52 @@
-public class Board implements Observable {
+import java.util.LinkedList;
+import java.util.List;
 
-    private Observer observer;
+public class Board implements UIObserver, BoardObservable {
 
-    @Override
-    public void addObserver(Observer o) {
-        observer = o;
+    private BoardObserver boardController;
+    private Tile[][] board;
+
+    public Board(List<String> lines, BoardObserver boardController){
+        board = new Tile[lines.size()][];
+        int index = 0;
+        for (String line: lines) {
+            for (int i = 0; i < line.length(); i++) {
+                board[index][i] = new Tile(line.charAt(i), index, i);
+            }
+        }
+        addObserver(boardController);
     }
 
     @Override
-    public void notifyObserver(int i1, int i2) {
-        observer.update(i1, i2);
+    public void addObserver(BoardObserver o) {
+        boardController = o;
+    }
+
+    @Override
+    public void notifyObserver(List<String> lines) {
+        boardController.update(lines);
+    }
+
+    @Override
+    public void update(char c) {
+        if(c == 'w' | c == 'a' | c == 's' | c == 'd' | c == 'e' | c == 'q'){
+            move(c);
+        }
+    }
+
+    public void move(char c){
+
+    }
+
+    private List<String> toList(){
+        List<String> lines = new LinkedList<>();
+        for (int i = 0; i < board.length; i++) {
+            String line = "";
+            for (int j = 0; j < board[i].length; j++) {
+                line += board[i][j].toString();
+            }
+            lines.add(line);
+        }
+        return lines;
     }
 }

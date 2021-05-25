@@ -1,5 +1,6 @@
 public interface Visitor {
-    public boolean visit(Player p);
-    public boolean visit(Trap t);
-    public boolean visit(Monster m);
+    public void visit(Player player);
+    public void visit(Enemy enemy);
+    public void visit(Empty empty);
+    public void visit(Wall wall);
 }
