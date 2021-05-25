@@ -12,5 +12,25 @@ abstract public class Player extends Unit {
         defencePoints += playerLevel;
     }
 
+    @Override
+    public boolean accept(Visitor v) {
+        return v.visit(this);
+    }
+
+    @Override
+    public boolean visit(Player p) {
+        return false;
+    }
+
+    @Override
+    public boolean visit(Trap t) {
+        return true;
+    }
+
+    @Override
+    public boolean visit(Monster m) {
+        return true;
+    }
+
     abstract public void cast();
 }
