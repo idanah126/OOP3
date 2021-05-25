@@ -17,13 +17,23 @@ public class BoardController implements UIObserver, UIObservable, BoardObserver,
     }
 
     @Override
-    public void notifyObserver(List<String> lines) {
-        ui.update(lines);
+    public void notifyObserverBoard(List<String> lines) {
+        ui.updateBoard(lines);
     }
 
     @Override
-    public void update(List<String> lines) {
-        notifyObserver(lines);
+    public void notifyObserverStats(String stats) {
+        ui.updateStats(stats);
+    }
+
+    @Override
+    public void notifyObserverCombatInfo(String combatInfo) {
+        ui.updateCombatInfo(combatInfo);
+    }
+
+    @Override
+    public void notifyObserverLevelUp(String levelUp) {
+        ui.updateLevelUp(levelUp);
     }
 
     @Override
@@ -39,5 +49,25 @@ public class BoardController implements UIObserver, UIObservable, BoardObserver,
     @Override
     public void update(char c) {
         notifyObserver(c);
+    }
+
+    @Override
+    public void updateBoard(List<String> lines) {
+        notifyObserverBoard(lines);
+    }
+
+    @Override
+    public void updateStats(String stats) {
+        notifyObserverStats(stats);
+    }
+
+    @Override
+    public void updateCombatInfo(String combatInfo) {
+        notifyObserverCombatInfo(combatInfo);
+    }
+
+    @Override
+    public void updateLevelUp(String levelUp) {
+        notifyObserverLevelUp(levelUp);
     }
 }

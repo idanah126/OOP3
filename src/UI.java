@@ -20,7 +20,22 @@ public class UI implements BoardObserver, UIObservable {
     }
 
     @Override
-    public void update(List<String> lines) {
+    public void updateBoard(List<String> lines) {
 
+    }
+
+    @Override
+    public void updateStats(String stats) {
+        System.out.println(stats);
+    }
+
+    @Override
+    public void updateCombatInfo(String combatInfo) {
+        System.out.println(combatInfo);
+    }
+
+    @Override
+    public void updateLevelUp(String levelUp) {
+        System.out.println(levelUp);
     }
 }

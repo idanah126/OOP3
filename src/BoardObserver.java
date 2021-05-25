@@ -1,5 +1,8 @@
 import java.util.List;
 
 public interface BoardObserver {
-    void update(List<String> lines);
+    void updateBoard(List<String> lines);
+    void updateStats(String stats);
+    void updateCombatInfo(String combatInfo);
+    void updateLevelUp(String levelUp);
 }

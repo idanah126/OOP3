@@ -23,8 +23,23 @@ public class Board implements UIObserver, BoardObservable {
     }
 
     @Override
-    public void notifyObserver(List<String> lines) {
-        boardController.update(lines);
+    public void notifyObserverBoard(List<String> lines) {
+        boardController.updateBoard(lines);
+    }
+
+    @Override
+    public void notifyObserverStats(String stats) {
+        boardController.updateStats(stats);
+    }
+
+    @Override
+    public void notifyObserverCombatInfo(String combatInfo) {
+
+    }
+
+    @Override
+    public void notifyObserverLevelUp(String levelUp) {
+
     }
 
     @Override
