@@ -1,12 +1,10 @@
 public class Empty extends Tile {
 
-    public Empty(){
-        tile = '.';
-    }
+    int x;
+    int y;
 
-    @Override
-    public void attack(Tile defender) {
-        throw new IllegalArgumentException("empty tile");
+    public Empty(int x, int y){
+        super('.' , x, y);
     }
 
     @Override

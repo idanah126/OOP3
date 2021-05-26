@@ -5,8 +5,10 @@ public class Board implements UIObserver, BoardObservable {
 
     private BoardObserver boardController;
     private Tile[][] board;
+    private Player player;
 
-    public Board(List<String> lines, BoardObserver boardController){
+    public Board(List<String> lines, char c, BoardObserver boardController){
+        player = PlayersList.getInstance().getPlayer(c);
         board = new Tile[lines.size()][];
         int index = 0;
         for (String line: lines) {

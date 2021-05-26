@@ -1,12 +1,12 @@
 public class Wall extends Tile {
 
-    public Wall(){
-        tile = '#';
-    }
+    int x;
+    int y;
 
-    @Override
-    public void attack(Tile defender) {
-        throw new IllegalArgumentException("wall tile");
+    public Wall(int x, int y){
+        super('#' , x, y);
+        this.x = x;
+        this.y = y;
     }
 
     @Override

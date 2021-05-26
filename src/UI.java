@@ -4,8 +4,8 @@ public class UI implements BoardObserver, UIObservable {
 
     UIObserver boardController;
 
-    public UI(List<String> lines){
-        boardController = new BoardController(lines, this);
+    public UI(List<String> lines, char c){
+        boardController = new BoardController(lines, char c, this);
         addObserver(boardController);
     }
 

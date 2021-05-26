@@ -1,4 +1,4 @@
-abstract public class Player extends Unit {
+public abstract class Player extends Unit {
 
     protected int experience;
     protected int playerLevel;
