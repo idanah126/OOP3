@@ -1,20 +1,24 @@
-public class Tile implements Visited, Visitor {
+public abstract class Tile implements Visited, Visitor {
 
     protected char tile;
     protected int x;
     protected int y;
 
     public Tile(char tile, int x, int y){
-        if(tile == '.'){
-            new Empty(x, y);
-        }
-        else if(tile == '#'){
-            new Wall(x, y);
-        }
         this.tile = tile;
         this.x = x;
         this.y = y;
     }
+
+    public char getTile() {return tile;}
+
+    public int getX() {return x;}
+
+    public int getY() {return y;}
+
+    public void setX(int x) {this.x = x;}
+
+    public void setY(int y) {this.y = y;}
 
     public String toString(){
         return tile + "";

@@ -1,7 +1,7 @@
 public class Wall extends Tile {
 
-    int x;
-    int y;
+    private int x;
+    private int y;
 
     public Wall(int x, int y){
         super('#' , x, y);

@@ -1,15 +1,29 @@
+import java.util.List;
+
 public abstract class Player extends Unit {
 
     protected int experience;
     protected int playerLevel;
+    protected List<Enemy> enemyList;
+
+    public Player(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList) {
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
+        experience = 0;
+        playerLevel = 1;
+        this.enemyList = enemyList;
+    }
 
     public void levelUp(){
         experience -= (50 * playerLevel);
         playerLevel += 1;
-//        healthPool += (10 * playerLevel);
-//        currentHealth = healthPool;
-//        attackPoints += (4 * playerLevel);
-//        defencePoints += playerLevel;
+        healthPool += (10 * playerLevel);
+        healthAmount = healthPool;
+        attackPoints += (4 * playerLevel);
+        defensePoints += playerLevel;
+    }
+
+    public String description() {
+        return super.description() + "Experience value: " + this.experience;
     }
 
     @Override
@@ -18,16 +32,7 @@ public abstract class Player extends Unit {
     }
 
     @Override
-    public void visit(Player p) {
-    }
-
-    @Override
-    public void visit(Wall wall) {
-    }
-
-    @Override
-    public void visit(Empty empty) {
-    }
+    public void visit(Player p) {}
 
     @Override
     public void visit(Enemy enemy) {

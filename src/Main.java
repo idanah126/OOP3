@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("welcome!");
-        List<String> board = readAllLines("levels_dir/level1.txt");
+        List<String> board = readAllLines(args[0] + "/level1.txt");
         for (String s: board
              ) {
             System.out.println(s);
