@@ -9,13 +9,7 @@ public class Monster extends Enemy {
 
     @Override
     public String description() {
-        String description = super.description() + "Vision range: " + this.visionRange;
-        return description;
-    }
-
-    @Override
-    public int attack(Tile defender) {
-        return 0;
+        return super.description() + "Vision range: " + visionRange;
     }
 
 

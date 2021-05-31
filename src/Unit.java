@@ -25,6 +25,21 @@ abstract public class Unit extends Tile implements Visitor, Visited {
                 "Defense points: " + this.defensePoints + ",";
     }
 
+    public void updateHealth(int addedHealth){
+        if(healthAmount + addedHealth >= healthPool){
+            healthAmount = healthPool;
+        }
+        else{
+            healthAmount += addedHealth;
+        }
+    }
+
+    public boolean dead(){
+        return healthAmount <= 0;
+    }
+
+    public abstract void accept(Visitor visitor);
+
     public abstract void visit(Player player);
 
     public abstract void visit(Enemy enemy);
@@ -36,7 +51,16 @@ abstract public class Unit extends Tile implements Visitor, Visited {
     public void visit(Wall wall){}
 
 
-    public int attack(Tile defender) {
-        return 0;
+    public void attack(Unit defender){
+        int attackRoll = MathOperations.random(attackPoints);
+        int defenceRoll = MathOperations.random(defender.defensePoints);
+        if(attackRoll > defenceRoll){
+            defender.healthAmount -= (attackRoll - defenceRoll);
+            if(defender.dead()){
+                x = defender.x;
+                y = defender.y;
+            }
+        }
     }
+
 }

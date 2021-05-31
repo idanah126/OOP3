@@ -13,22 +13,14 @@ public class Empty extends Tile {
     }
 
     @Override
-    public void visit(Player player) {
-
-    }
+    public void visit(Player player) {}
 
     @Override
-    public void visit(Enemy enemy) {
-
-    }
+    public void visit(Enemy enemy) {}
 
     @Override
-    public void visit(Empty empty) {
-
-    }
+    public void visit(Empty empty) {}
 
     @Override
-    public void visit(Wall wall) {
-
-    }
+    public void visit(Wall wall) {}
 }

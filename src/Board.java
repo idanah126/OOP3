@@ -4,29 +4,31 @@ import java.util.List;
 public class Board implements UIObserver, BoardObservable {
 
     private BoardObserver boardController;
-    private List<Tile> tileList;
+    private List<Tile> board;
     private Player player;
     private List<Monster> monsterList;
     private List<Trap> trapList;
     private List<Enemy> enemyList;
-    private int number_of_rows;
-    private int number_of_columns;
+    private final int numOfRows;
+    private final int numOfColumns;
 
     public Board(List<String> lines, char c, BoardObserver boardController){
+        numOfRows = lines.size();
+        numOfColumns = lines.get(0).length();
         enemyList = new LinkedList<>();
         trapList = new LinkedList<>();
         monsterList = new LinkedList<>();
-        board = new Tile[lines.size()][];
+        board = new LinkedList<>();
         int index = 0;
-        int playerX = 0;
-        int playerY = 0;
+        int playerX = -1;
+        int playerY = -1;
         for (String line: lines) {
-            for (int i = 0; i < line.length(); i++) {
+            for (int i = 0; i < numOfColumns; i++) {
                 if(line.charAt(i) == '.'){
-                    board[index][i] = new Empty(index, i);
+                    board.add(new Empty(index, i));
                 }
                 else if(line.charAt(i) == '#'){
-                    board[index][i] = new Wall(index, i);
+                    board.add(new Wall(index, i));
                 }
                 else if(line.charAt(i) == '@'){
                     playerX = index;
@@ -36,18 +38,18 @@ public class Board implements UIObserver, BoardObservable {
                     Trap trap = UnitList.getTrap(line.charAt(i), index, i);
                     trapList.add(trap);
                     enemyList.add(trap);
-                    board[index][i] = trap;
+                    board.add(trap);
                 }
                 else{
                     Monster monster = UnitList.getMonster(line.charAt(i), index, i);
                     monsterList.add(monster);
                     enemyList.add(monster);
-                    board[index][i] = monster;
+                    board.add(monster);
                 }
             }
         }
         player = UnitList.getPlayer(c, playerX, playerY, enemyList);
-        board[playerX][playerY] = player;
+        board.add(player);
         addObserver(boardController);
     }
 
@@ -162,26 +164,12 @@ public class Board implements UIObserver, BoardObservable {
 
         }
 
-        public String toString(){
-            String boardString = "";
-            for (int i = 0 ; i < this.number_of_rows ; i++)
-            {
-                for (int j = 0 ; j < this.number_of_columns ; j++){
-                    boardString+= board[i][j].toString();}
-                boardString+= "\n";
+        public char[][] to2dArray(){
+            char[][] boardChar = new char[numOfRows][numOfColumns];
+            for (Tile tile: board) {
+                boardChar[tile.getX()][tile.getY()] = tile.getTile();
             }
-            return boardString;
+            return boardChar;
         }
 
-        private List<String> toList(){
-            List<String> lines = new LinkedList<>();
-            for (Tile[] tiles : board) {
-                StringBuilder line = new StringBuilder();
-                for (int j = 0; j < tiles.length; j++) {
-                    line.append(tiles[j].toString());
-                }
-                lines.add(line.toString());
-            }
-            return lines;
-        }
     }

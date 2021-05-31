@@ -15,17 +15,11 @@ public class Trap extends Enemy {
     }
 
     @Override
-    public int attack(Tile defender) {
-        return 1;
-    }
-
-    @Override
     public String description() {
-        String description = super.description() + "Visibility time: " + this.visibilityTime + ", " +
-                "Invisibility time: " + this.invisibilityTime + ", " +
-                "Ticks Count: " + this.ticksCount + ", " +
-                "Visible: " + this.visible + "," ;
-        return description;
+        return super.description() + "Visibility time: " + visibilityTime + ", " +
+                "Invisibility time: " + invisibilityTime + ", " +
+                "Ticks Count: " + ticksCount + ", " +
+                "Visible: " + visible;
     }
 
 //    public boolean visibleState(){

@@ -5,6 +5,7 @@ public abstract class Player extends Unit {
     protected int experience;
     protected int playerLevel;
     protected List<Enemy> enemyList;
+    protected String castName;
 
     public Player(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList) {
         super(tile, x, y, name, healthPool, attackPoints, defensePoints);
@@ -22,8 +23,10 @@ public abstract class Player extends Unit {
         defensePoints += playerLevel;
     }
 
+    public abstract void turnUpdate();
+
     public String description() {
-        return super.description() + "Experience value: " + this.experience;
+        return super.description() + "Experience value: " + experience + ", ";
     }
 
     @Override
@@ -36,7 +39,7 @@ public abstract class Player extends Unit {
 
     @Override
     public void visit(Enemy enemy) {
-//        combat(enemy);
+        attack(enemy);
     }
 
     abstract public void cast();

@@ -9,6 +9,7 @@ public class Rogue extends Player {
         super(tile, x, y, name, healthPool, attackPoints, defensePoints, enemyList);
         this.cost = cost;
         currentEnergy = 100;
+        castName = "Fan of Knives";
     }
 
     public void levelUp(){
@@ -18,12 +19,26 @@ public class Rogue extends Player {
     }
 
     @Override
-    public int attack(Tile defender) {
-        return 0;
+    public void cast() {
+        if(currentEnergy >= cost){
+            currentEnergy -= cost;
+            for (Enemy enemy: enemyList) {
+                if(MathOperations.getDistance(x,y,enemy.getX(),enemy.getY()) < 2){
+                    int defenceRoll = MathOperations.random(enemy.defensePoints);
+                    if(attackPoints > defenceRoll) {
+                        enemy.healthAmount -= attackPoints;
+                        if (enemy.dead()) {
+                            enemyList.remove(enemy);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
-    public void cast() {
-
+    public void turnUpdate() {
+        currentEnergy = Math.min(currentEnergy + 10, 100);
     }
+
 }

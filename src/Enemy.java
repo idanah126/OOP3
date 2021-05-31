@@ -8,11 +8,8 @@ public abstract class Enemy extends Unit {
     }
 
     public  String description() {
-        String description = super.description() + "Experience value: " + this.experienceValue;
-        return description;
+        return super.description() + "Experience value: " + experienceValue + ", ";
     }
-
-    public abstract int attack( Tile defender);
 
     public void accept(Visitor v){
         v.visit(this);
@@ -21,6 +18,6 @@ public abstract class Enemy extends Unit {
     public void visit(Enemy enemy){}
 
     public void visit(Player player){
-
+        attack(player);
     }
 }
