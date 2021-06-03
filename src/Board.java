@@ -3,6 +3,8 @@ import java.util.List;
 
 public class Board implements UIObserver, BoardObservable {
 
+    private boolean active;
+    private boolean lost;
     private BoardObserver boardController;
     private List<Tile> board;
     private Player player;
@@ -13,6 +15,8 @@ public class Board implements UIObserver, BoardObservable {
     private final int numOfColumns;
 
     public Board(List<String> lines, char c, BoardObserver boardController){
+        lost = false;
+        active = true;
         numOfRows = lines.size();
         numOfColumns = lines.get(0).length();
         enemyList = new LinkedList<>();
@@ -20,8 +24,6 @@ public class Board implements UIObserver, BoardObservable {
         monsterList = new LinkedList<>();
         board = new LinkedList<>();
         int index = 0;
-        int playerX = -1;
-        int playerY = -1;
         for (String line: lines) {
             for (int i = 0; i < numOfColumns; i++) {
                 if(line.charAt(i) == '.'){
@@ -31,25 +33,24 @@ public class Board implements UIObserver, BoardObservable {
                     board.add(new Wall(index, i));
                 }
                 else if(line.charAt(i) == '@'){
-                    playerX = index;
-                    playerY = i;
+                    player = UnitList.getPlayer(c, index, i, enemyList);
+                    board.add(player);
                 }
                 else if(line.charAt(i) == 'B' | line.charAt(i) == 'Q' | line.charAt(i) == 'D'){
-                    Trap trap = UnitList.getTrap(line.charAt(i), index, i);
+                    Trap trap = UnitList.getTrap(line.charAt(i), index, i, player);
                     trapList.add(trap);
                     enemyList.add(trap);
                     board.add(trap);
                 }
                 else{
-                    Monster monster = UnitList.getMonster(line.charAt(i), index, i);
+                    Monster monster = UnitList.getMonster(line.charAt(i), index, i, player);
                     monsterList.add(monster);
                     enemyList.add(monster);
                     board.add(monster);
                 }
             }
+            index += 1;
         }
-        player = UnitList.getPlayer(c, playerX, playerY, enemyList);
-        board.add(player);
         addObserver(boardController);
     }
 
@@ -78,11 +79,17 @@ public class Board implements UIObserver, BoardObservable {
 
     }
 
+
     @Override
     public void update(char c) {
         if(c == 'w' | c == 'a' | c == 's' | c == 'd' | c == 'e' | c == 'q'){
-            move(c);
+            turn(c);
         }
+    }
+
+    @Override
+    public boolean isActive() {
+        return active;
     }
 
     public double range(Tile tile1,Tile tile2){
@@ -94,58 +101,58 @@ public class Board implements UIObserver, BoardObservable {
 
     }
 
-    public void moveMonster(Monster m) {
-        double dx;
-        double dy;
-        if (this.range(m, player) < this.visionRange()) {
-            dx = m.getX() - player.getX();
-            dy = m.getX() - player.getX();
-            if (Math.abs(dx) > Math.abs(dy)) {
-                if (dx > 0) {
-                    //monster move left
-                    if (board[m.getX() - 1][m.getY()].getTile() != ('#')) //if it is a block
-                    {
-                        Tile tileTmp = board[m.getX() - 1][m.getY()];
-                        board[m.getX() - 1][m.getY()] = m;
-                        board[m.getX()][m.getY()] = tileTmp;
-                        m.setY(m.getX() - 1);
-                    }
-                } else {
-                    //monster move right
-                    if (board[m.getX() - 1][m.getY()].getTile() != ('#')) //if it is a block
-                    {
-                        Tile tileTmp = board[m.getX() + 1][m.getY()];
-                        board[m.getX() + 1][m.getY()] = m;
-                        board[m.getX()][m.getY()] = tileTmp;
-                        m.setY(m.getX() + 1);
-                    }
-                }
-            } else {
-                if (dy > 0) {
-                    //monster move up
-                    if (board[m.getX()][m.getY() - 1].getTile() != ('#')) //if it is a block
-                    {
-                        Tile tileTmp = board[m.getX()][m.getY() - 1];
-                        board[m.getX()][m.getY() - 1] = m;
-                        board[m.getX()][m.getY()] = tileTmp;
-                        m.setY(m.getY() - 1);
-                    }
-                } else {
-                    //monster move down
-                    if (board[m.getX()][m.getY() + 1].getTile() != ('#')) //if it is a block
-                    {
-                        Tile tileTmp = board[m.getX()][m.getY() + 1];
-                        board[m.getX()][m.getY() + 1] = m;
-                        board[m.getX()][m.getY()] = tileTmp;
-                        m.setY(m.getY() + 1);
-                    }
-                }
-            }
-        }
-        else{
-            this.moveRandomlyMonster(m);
-        }
-    }
+//    public void moveMonster(Monster m) {
+//        double dx;
+//        double dy;
+//        if (this.range(m, player) < this.visionRange()) {
+//            dx = m.getX() - player.getX();
+//            dy = m.getX() - player.getX();
+//            if (Math.abs(dx) > Math.abs(dy)) {
+//                if (dx > 0) {
+//                    //monster move left
+//                    if (board[m.getX() - 1][m.getY()].getTile() != ('#')) //if it is a block
+//                    {
+//                        Tile tileTmp = board[m.getX() - 1][m.getY()];
+//                        board[m.getX() - 1][m.getY()] = m;
+//                        board[m.getX()][m.getY()] = tileTmp;
+//                        m.setY(m.getX() - 1);
+//                    }
+//                } else {
+//                    //monster move right
+//                    if (board[m.getX() - 1][m.getY()].getTile() != ('#')) //if it is a block
+//                    {
+//                        Tile tileTmp = board[m.getX() + 1][m.getY()];
+//                        board[m.getX() + 1][m.getY()] = m;
+//                        board[m.getX()][m.getY()] = tileTmp;
+//                        m.setY(m.getX() + 1);
+//                    }
+//                }
+//            } else {
+//                if (dy > 0) {
+//                    //monster move up
+//                    if (board[m.getX()][m.getY() - 1].getTile() != ('#')) //if it is a block
+//                    {
+//                        Tile tileTmp = board[m.getX()][m.getY() - 1];
+//                        board[m.getX()][m.getY() - 1] = m;
+//                        board[m.getX()][m.getY()] = tileTmp;
+//                        m.setY(m.getY() - 1);
+//                    }
+//                } else {
+//                    //monster move down
+//                    if (board[m.getX()][m.getY() + 1].getTile() != ('#')) //if it is a block
+//                    {
+//                        Tile tileTmp = board[m.getX()][m.getY() + 1];
+//                        board[m.getX()][m.getY() + 1] = m;
+//                        board[m.getX()][m.getY()] = tileTmp;
+//                        m.setY(m.getY() + 1);
+//                    }
+//                }
+//            }
+//        }
+//        else{
+//            this.moveRandomlyMonster(m);
+//        }
+//    }
 
         public void moveRandomlyMonster(Monster m) {
             throw new IllegalArgumentException();
@@ -156,20 +163,59 @@ public class Board implements UIObserver, BoardObservable {
             throw new IllegalArgumentException();
         }
 
-        public void movePlayer(){
-            throw new IllegalArgumentException();
+        public void turn(char c){
+            player.playerTurn(c, this);
+            for (Enemy enemy: enemyList) {
+                enemy.enemyTurn(this);
+            }
+            updateBoard();
+            notifyObserverBoard(toListOfString(to2dArray()));
         }
 
-        public void move(char c){
-
+        public void updateBoard(){
+            for (Enemy enemy: enemyList) {
+                if(enemy.dead()){
+//                    enemyList.remove(enemy);
+                    board.remove(enemy);
+                    board.add(new Empty(enemy.getX(), enemy.getY()));
+                }
+            }
+            if(enemyList.isEmpty()){
+                active = false;
+            }
+            if(player.dead()){
+                player.setDead();
+                lost = true;
+            }
         }
 
-        public char[][] to2dArray(){
+        public Tile getTile(int x, int y){
+            for (Tile tile: board) {
+                if(tile.getX() == x && tile.getY() == y){
+                    return tile;
+                }
+            }
+            return null;
+        }
+
+        private char[][] to2dArray(){
             char[][] boardChar = new char[numOfRows][numOfColumns];
             for (Tile tile: board) {
                 boardChar[tile.getX()][tile.getY()] = tile.getTile();
             }
             return boardChar;
+        }
+
+        public List<String> toListOfString(char[][] board){
+            List<String> lines = new LinkedList<>();
+            for (int i = 0; i < numOfRows; i++) {
+                String s = "";
+                for (int j = 0; j < numOfColumns; j++) {
+                    s += board[i][j];
+                }
+                lines.add(s);
+            }
+            return lines;
         }
 
     }

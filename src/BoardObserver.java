@@ -5,4 +5,5 @@ public interface BoardObserver {
     void updateStats(String stats);
     void updateCombatInfo(String combatInfo);
     void updateLevelUp(String levelUp);
+    boolean isActive();
 }

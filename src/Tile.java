@@ -1,16 +1,16 @@
 public abstract class Tile implements Visited, Visitor {
 
-    protected char tile;
+    protected char c;
     protected int x;
     protected int y;
 
-    public Tile(char tile, int x, int y){
-        this.tile = tile;
+    public Tile(char c, int x, int y){
+        this.c = c;
         this.x = x;
         this.y = y;
     }
 
-    public char getTile() {return tile;}
+    public char getTile() {return c;}
 
     public int getX() {return x;}
 
@@ -21,7 +21,7 @@ public abstract class Tile implements Visited, Visitor {
     public void setY(int y) {this.y = y;}
 
     public String toString(){
-        return tile + "";
+        return c + "";
     }
 
     @Override
@@ -51,6 +51,6 @@ public abstract class Tile implements Visited, Visitor {
 
     @Override
     public void visit(Tile tile) {
-        tile.visit(this);
+        tile.accept(this);
     }
 }

@@ -45,6 +45,7 @@ public class Warrior extends Player {
 
     @Override
     public void turnUpdate() {
+        super.turnUpdate();
         if (remainingCoolDown != 0){
             remainingCoolDown -= 1;
         }

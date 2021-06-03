@@ -60,6 +60,7 @@ public class Mage extends Player {
 
     @Override
     public void turnUpdate() {
+        super.turnUpdate();
         currentMana = Math.min(manaPool, currentMana + playerLevel);
     }
 }

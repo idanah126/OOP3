@@ -70,4 +70,9 @@ public class BoardController implements UIObserver, UIObservable, BoardObserver,
     public void updateLevelUp(String levelUp) {
         notifyObserverLevelUp(levelUp);
     }
+
+    @Override
+    public boolean isActive() {
+        return board.isActive();
+    }
 }

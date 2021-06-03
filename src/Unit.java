@@ -45,7 +45,12 @@ abstract public class Unit extends Tile implements Visitor, Visited {
     public abstract void visit(Enemy enemy);
 
     public void visit(Empty empty){
-
+        int emptyX = empty.getX();
+        int emptyY = empty.getY();
+        empty.setX(x);
+        empty.setY(y);
+        setX(emptyX);
+        setY(emptyY);
     }
 
     public void visit(Wall wall){}
@@ -56,10 +61,6 @@ abstract public class Unit extends Tile implements Visitor, Visited {
         int defenceRoll = MathOperations.random(defender.defensePoints);
         if(attackRoll > defenceRoll){
             defender.healthAmount -= (attackRoll - defenceRoll);
-            if(defender.dead()){
-                x = defender.x;
-                y = defender.y;
-            }
         }
     }
 

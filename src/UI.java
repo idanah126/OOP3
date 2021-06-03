@@ -21,7 +21,9 @@ public class UI implements BoardObserver, UIObservable {
 
     @Override
     public void updateBoard(List<String> lines) {
-
+        for (String line : lines) {
+            System.out.println(line);
+        }
     }
 
     @Override
@@ -37,5 +39,10 @@ public class UI implements BoardObserver, UIObservable {
     @Override
     public void updateLevelUp(String levelUp) {
         System.out.println(levelUp);
+    }
+
+    @Override
+    public boolean isActive() {
+        return boardController.isActive();
     }
 }

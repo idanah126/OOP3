@@ -38,6 +38,7 @@ public class Rogue extends Player {
 
     @Override
     public void turnUpdate() {
+        super.turnUpdate();
         currentEnergy = Math.min(currentEnergy + 10, 100);
     }
 

@@ -26,51 +26,51 @@ public class UnitList {
         }
     }
 
-    public static Trap getTrap(char c, int x, int y){
+    public static Trap getTrap(char c, int x, int y, Player player){
         if(c == 'B'){
-            return new Trap('B', x, y, "Bonus Trap", 1, 1, 1, 250, 1,  5);
+            return new Trap('B', x, y, "Bonus Trap", 1, 1, 1, 250, player, 1,  5);
         }
         else if(c == 'Q'){
-            return new Trap('Q', x, y, "Queen's Trap", 250, 50, 10, 100, 3, 7);
+            return new Trap('Q', x, y, "Queen's Trap", 250, 50, 10, 100, player, 3, 7);
         }
         else if(c == 'D'){
-            return new Trap('D', x, y, "Death Trap", 500, 100, 20, 250, 1, 10);
+            return new Trap('D', x, y, "Death Trap", 500, 100, 20, 250, player, 1, 10);
         }
         else{
             throw new IllegalArgumentException("not legal char");
         }
     }
 
-    public static Monster getMonster(char c, int x, int y){
+    public static Monster getMonster(char c, int x, int y, Player player){
         if (c == 's') {
-            return new Monster('s', x, y, "Lannister Solider", 80, 8, 3, 25, 3);
+            return new Monster('s', x, y, "Lannister Solider", 80, 8, 3, 25, player, 3);
         }
         else if (c == 'k') {
-            return new Monster('k', x, y, "Lannister Knight", 200, 14, 8, 50, 4);
+            return new Monster('k', x, y, "Lannister Knight", 200, 14, 8, 50, player, 4);
         }
         else if (c == 'q') {
-            return new Monster('q', x, y, "Queen's Guard", 400, 20, 15, 100, 5);
+            return new Monster('q', x, y, "Queen's Guard", 400, 20, 15, 100, player, 5);
         }
         else if (c == 'z') {
-            return new Monster('z', x, y, "Wright", 600, 30, 15, 100, 3);
+            return new Monster('z', x, y, "Wright", 600, 30, 15, 100, player, 3);
         }
         else if (c == 'b') {
-            return new Monster('b', x, y, "Bear-Wright", 1000, 75, 30, 250, 4);
+            return new Monster('b', x, y, "Bear-Wright", 1000, 75, 30, 250, player, 4);
         }
         else if (c == 'g') {
-            return new Monster('g', x, y, "Giant-Wright", 1500, 100, 40, 500, 5);
+            return new Monster('g', x, y, "Giant-Wright", 1500, 100, 40, 500, player, 5);
         }
         else if (c == 'w') {
-            return new Monster('w', x, y, "White Walker", 2000, 150, 50, 1000, 6);
+            return new Monster('w', x, y, "White Walker", 2000, 150, 50, 1000, player, 6);
         }
         else if (c == 'M') {
-            return new Monster('M', x, y, "The Mountain", 1000, 60, 25, 500, 6);
+            return new Monster('M', x, y, "The Mountain", 1000, 60, 25, 500, player, 6);
         }
         else if (c == 'C') {
-            return new Monster('C', x, y, "Queen Cersei", 100, 10, 10, 1000, 1);
+            return new Monster('C', x, y, "Queen Cersei", 100, 10, 10, 1000, player, 1);
         }
         else if (c == 'K') {
-            return new Monster('K', x, y, "Knight's King", 5000, 300, 150, 5000, 8);
+            return new Monster('K', x, y, "Knight's King", 5000, 300, 150, 5000, player, 8);
         }
         else {
             throw new IllegalArgumentException("not legal char");

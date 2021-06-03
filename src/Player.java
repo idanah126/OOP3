@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class Player extends Unit {
+public abstract class Player extends Unit implements Mover{
 
     protected int experience;
     protected int playerLevel;
@@ -14,6 +14,10 @@ public abstract class Player extends Unit {
         this.enemyList = enemyList;
     }
 
+    public void setDead(){
+        c = 'X';
+    }
+
     public void levelUp(){
         experience -= (50 * playerLevel);
         playerLevel += 1;
@@ -23,7 +27,11 @@ public abstract class Player extends Unit {
         defensePoints += playerLevel;
     }
 
-    public abstract void turnUpdate();
+    public void turnUpdate(){
+        if(experience >= 50){
+            levelUp();
+        }
+    }
 
     public String description() {
         return super.description() + "Experience value: " + experience + ", ";
@@ -40,7 +48,64 @@ public abstract class Player extends Unit {
     @Override
     public void visit(Enemy enemy) {
         attack(enemy);
+        if(enemy.dead()){
+            experience += enemy.experienceValue;
+            int enemyX = enemy.getX();
+            int enemyY = enemy.getY();
+            enemy.setX(x);
+            enemy.setY(y);
+            setX(enemyX);
+            setY(enemyY);
+        }
     }
 
-    abstract public void cast();
+    public abstract void cast();
+
+    public void playerTurn(char c, Board board){
+        if(c == 'e'){
+            cast();
+        }
+        movePlayer(c, board);
+        turnUpdate();
+    }
+
+    public void movePlayer(char c, Board board){
+        if(c == 'w'){
+            moveUp(board);
+        }
+        else if(c == 'a'){
+            moveLeft(board);
+        }
+        else if(c == 's'){
+            moveDown(board);
+        }
+        else if(c == 'd'){
+            moveRight(board);
+        }
+    }
+
+    @Override
+    public void moveUp(Board board) {
+        visit(board.getTile(x - 1, y));
+    }
+
+    @Override
+    public void moveDown(Board board) {
+        visit(board.getTile(x + 1, y));
+    }
+
+    @Override
+    public void moveLeft(Board board) {
+        visit(board.getTile(x, y - 1));
+    }
+
+    @Override
+    public void moveRight(Board board) {
+        visit(board.getTile(x, y + 1));
+    }
+
+    @Override
+    public boolean dead() {
+        return super.dead();
+    }
 }
