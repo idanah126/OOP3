@@ -35,7 +35,7 @@ public class Trap extends Enemy {
     public void setTicksCount(int ticksCount) {this.ticksCount=ticksCount;}
 
     @Override
-    public void enemyTurn(Board board) {
+    public void enemyTurn() {
 
     }
 

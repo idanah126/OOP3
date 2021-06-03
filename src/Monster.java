@@ -13,7 +13,7 @@ public class Monster extends Enemy implements Mover{
     }
 
     @Override
-    public void enemyTurn(Board board) {
+    public void enemyTurn() {
         moveMonster(board);
     }
 

@@ -163,9 +163,9 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
         }
 
         public void turn(char c){
-            player.playerTurn(c, this);
+            player.playerTurn(c);
             for (Enemy enemy: enemyList) {
-                enemy.enemyTurn(this);
+                enemy.enemyTurn();
             }
             updateBoard();
             notifyObserverBoard(toListOfString(to2dArray()));

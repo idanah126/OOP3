@@ -63,7 +63,7 @@ public abstract class Player extends Unit implements Mover{
 
     public abstract void cast();
 
-    public void playerTurn(char c, Board board){
+    public void playerTurn(char c){
         if(c == 'e'){
             cast();
         }

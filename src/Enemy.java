@@ -23,7 +23,7 @@ public abstract class Enemy extends Unit {
         attack(player);
     }
 
-    public abstract void enemyTurn(Board board);
+    public abstract void enemyTurn();
 
     @Override
     public void notifyObserverLevelUp(String levelUp) {}

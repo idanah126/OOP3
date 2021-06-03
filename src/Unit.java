@@ -59,7 +59,7 @@ abstract public class Unit extends Tile implements Visitor, Visited, UnitObserva
 
 
     public void attack(Unit defender){
-        notifyObserverCombatInfo(name + " attacks " + defender.name + "\n" + description() + "\n" + defender.description());
+        notifyObserverCombatInfo(name + " attacks " + defender.getName() + "\n" + description() + "\n" + defender.description());
         int attackRoll = MathOperations.random(attackPoints);
         int defenceRoll = MathOperations.random(defender.defensePoints);
         int damage = 0;
