@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class Board implements UIObserver, BoardObservable {
+public class Board implements UIObserver, BoardObservable, UnitObserver {
 
     private boolean active;
     private boolean lost;
@@ -33,17 +33,17 @@ public class Board implements UIObserver, BoardObservable {
                     board.add(new Wall(index, i));
                 }
                 else if(line.charAt(i) == '@'){
-                    player = UnitList.getPlayer(c, index, i, enemyList);
+                    player = UnitList.getPlayer(c, index, i, enemyList, this);
                     board.add(player);
                 }
                 else if(line.charAt(i) == 'B' | line.charAt(i) == 'Q' | line.charAt(i) == 'D'){
-                    Trap trap = UnitList.getTrap(line.charAt(i), index, i, player);
+                    Trap trap = UnitList.getTrap(line.charAt(i), index, i, player, this);
                     trapList.add(trap);
                     enemyList.add(trap);
                     board.add(trap);
                 }
                 else{
-                    Monster monster = UnitList.getMonster(line.charAt(i), index, i, player);
+                    Monster monster = UnitList.getMonster(line.charAt(i), index, i, player, this);
                     monsterList.add(monster);
                     enemyList.add(monster);
                     board.add(monster);
@@ -71,12 +71,12 @@ public class Board implements UIObserver, BoardObservable {
 
     @Override
     public void notifyObserverCombatInfo(String combatInfo) {
-
+        boardController.updateCombatInfo(combatInfo);
     }
 
     @Override
     public void notifyObserverLevelUp(String levelUp) {
-
+        boardController.updateLevelUp(levelUp);
     }
 
 
@@ -158,7 +158,6 @@ public class Board implements UIObserver, BoardObservable {
             throw new IllegalArgumentException();
         }
 
-
         private double visionRange() {
             throw new IllegalArgumentException();
         }
@@ -170,15 +169,22 @@ public class Board implements UIObserver, BoardObservable {
             }
             updateBoard();
             notifyObserverBoard(toListOfString(to2dArray()));
+            player.notifyObserverStats(player.description());
         }
 
         public void updateBoard(){
+            int index = -1;
+            int deadIndex = -1;
             for (Enemy enemy: enemyList) {
+                index += 1;
                 if(enemy.dead()){
-//                    enemyList.remove(enemy);
                     board.remove(enemy);
                     board.add(new Empty(enemy.getX(), enemy.getY()));
+                    deadIndex = index;
                 }
+            }
+            if(deadIndex != -1){
+                enemyList.remove(deadIndex);
             }
             if(enemyList.isEmpty()){
                 active = false;
@@ -218,4 +224,18 @@ public class Board implements UIObserver, BoardObservable {
             return lines;
         }
 
+    @Override
+    public void updateStats(String stats) {
+        notifyObserverStats(stats);
     }
+
+    @Override
+    public void updateCombatInfo(String combatInfo) {
+        notifyObserverCombatInfo(combatInfo);
+    }
+
+    @Override
+    public void updateLevelUp(String levelUp) {
+        notifyObserverLevelUp(levelUp);
+    }
+}

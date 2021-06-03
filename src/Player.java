@@ -7,8 +7,8 @@ public abstract class Player extends Unit implements Mover{
     protected List<Enemy> enemyList;
     protected String castName;
 
-    public Player(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList) {
-        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
+    public Player(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList) {
+        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints);
         experience = 0;
         playerLevel = 1;
         this.enemyList = enemyList;
@@ -25,16 +25,17 @@ public abstract class Player extends Unit implements Mover{
         healthAmount = healthPool;
         attackPoints += (4 * playerLevel);
         defensePoints += playerLevel;
+        notifyObserverLevelUp("level up!, new level: " + playerLevel + "\n" + "gained: " + 10 * playerLevel + " to the health pool, " + 4 * playerLevel + " to the attack points, " + playerLevel + " to the defence points");
     }
 
     public void turnUpdate(){
-        if(experience >= 50){
+        if(experience >= 50 * playerLevel){
             levelUp();
         }
     }
 
     public String description() {
-        return super.description() + "Experience value: " + experience + ", ";
+        return super.description() + " Level: " + playerLevel + ", Experience value: " + experience + "\n" +  "      Special Ability: " + castName + ", ";
     }
 
     @Override
@@ -50,6 +51,7 @@ public abstract class Player extends Unit implements Mover{
         attack(enemy);
         if(enemy.dead()){
             experience += enemy.experienceValue;
+            notifyObserverCombatInfo( "experience gained: " + enemy.experienceValue);
             int enemyX = enemy.getX();
             int enemyY = enemy.getY();
             enemy.setX(x);
@@ -107,5 +109,15 @@ public abstract class Player extends Unit implements Mover{
     @Override
     public boolean dead() {
         return super.dead();
+    }
+
+    @Override
+    public void notifyObserverLevelUp(String levelUp) {
+        board.updateLevelUp(levelUp);
+    }
+
+    @Override
+    public void notifyObserverStats(String stats) {
+        board.updateStats(stats);
     }
 }

@@ -2,8 +2,8 @@ public class Monster extends Enemy implements Mover{
 
     protected int visionRange;
 
-    public Monster(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player, int visionRange) {
-        super(tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue, player);
+    public Monster(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player, int visionRange) {
+        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue, player);
         this.visionRange = visionRange;
     }
 
@@ -18,23 +18,8 @@ public class Monster extends Enemy implements Mover{
     }
 
     @Override
-    public void accept(Visitor v) {
-        v.visit(this);
-    }
-
-    @Override
     public void visit(Enemy enemy) {
 
-    }
-
-    @Override
-    public void visit(Empty empty) {
-        int emptyX = empty.getX();
-        int emptyY = empty.getY();
-        empty.setX(x);
-        empty.setY(y);
-        x = emptyX;
-        y = emptyY;
     }
 
     @Override

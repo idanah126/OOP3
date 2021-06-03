@@ -5,9 +5,9 @@ public class Trap extends Enemy {
     protected int ticksCount;
     protected boolean visible;
 
-    public Trap(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player, int visibilityTime, int invisibilityTime)
+    public Trap(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player, int visibilityTime, int invisibilityTime)
     {
-        super(tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue, player);
+        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue, player);
         this.visibilityTime = visibilityTime;
         this.invisibilityTime = invisibilityTime;
         ticksCount = 0;
@@ -36,11 +36,6 @@ public class Trap extends Enemy {
 
     @Override
     public void enemyTurn(Board board) {
-
-    }
-
-    @Override
-    public void accept(Visitor v) {
 
     }
 
