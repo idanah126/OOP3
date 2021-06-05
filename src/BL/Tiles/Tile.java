@@ -23,6 +23,8 @@ public abstract class Tile implements Visited, Visitor {
 
     public void setY(int y) {this.y = y;}
 
+    public void setChar(char c) {this.c = c;}
+
     public String toString(){
         return c + "";
     }
