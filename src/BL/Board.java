@@ -109,18 +109,6 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
         return active;
     }
 
-    public double range(Tile tile1, Tile tile2){
-        double range = Math.sqrt((tile1.getX()-tile2.getX())*(tile1.getX()-tile2.getX()) + (tile1.getY()-tile2.getY())*(tile1.getY()-tile2.getY()));
-        return range;
-    }
-
-    public void combat(Tile tile1, Tile tile22){
-    }
-
-    private double visionRange() {
-        throw new IllegalArgumentException();
-    }
-
     public void turn(char c){
         player.playerTurn(c);
         for (Enemy enemy: enemyList) {
