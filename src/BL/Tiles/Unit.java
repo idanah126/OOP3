@@ -21,6 +21,7 @@ abstract public class Unit extends Tile implements Visitor, Visited, UnitObserva
         healthAmount = healthPool;
         this.attackPoints = attackPoints;
         this.defensePoints = defensePoints;
+        //this.board= board;
         addObserver(board);
     }
 
