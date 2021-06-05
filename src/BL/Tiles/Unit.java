@@ -67,19 +67,21 @@ abstract public class Unit extends Tile implements Visitor, Visited, UnitObserva
 
 
     public void attack(Unit defender){
-        notifyObserverCombatInfo(name + " attacks " + defender.getName() + "\n" + description() + "\n" + defender.description());
-        int attackRoll = MathOperations.random(attackPoints);
-        int defenceRoll = MathOperations.random(defender.defensePoints);
-        int damage = 0;
-        if(attackRoll > defenceRoll){
-            damage = attackRoll - defenceRoll;
-            defender.healthAmount -= damage;
+        if(!dead()) {
+            notifyObserverCombatInfo(name + " attacks " + defender.getName() + "\n" + description() + "\n" + defender.description());
+            int attackRoll = MathOperations.random(attackPoints);
+            int defenceRoll = MathOperations.random(defender.defensePoints);
+            int damage = 0;
+            if (attackRoll > defenceRoll) {
+                damage = attackRoll - defenceRoll;
+                defender.healthAmount -= damage;
+            }
+            String dead = "no";
+            if (defender.dead()) {
+                dead = "yes";
+            }
+            notifyObserverCombatInfo("attack roll: " + attackRoll + ". defence roll: " + defenceRoll + ". damage taken: " + damage + ". did the defender die?: " + dead);
         }
-        String dead = "no";
-        if(defender.dead()){
-            dead = "yes";
-        }
-        notifyObserverCombatInfo("attack roll: " + attackRoll + ". defence roll: " + defenceRoll + ". damage taken: " + damage + ". did the defender die?: " + dead);
     }
 
     @Override

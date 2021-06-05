@@ -82,4 +82,9 @@ public class BoardController implements UIObserver, UIObservable, BoardObserver,
     public boolean isActive() {
         return board.isActive();
     }
+
+    @Override
+    public boolean hasLost() {
+        return board.hasLost();
+    }
 }

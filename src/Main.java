@@ -25,17 +25,19 @@ public class Main {
         System.out.println("Rogues:");
         System.out.println("a for Arya Stark, b for Bronn");
         char character = scanner.nextLine().charAt(0);
-        for (int i = 1; i <= fileCount; i++) {
+        boolean hasLost = false;
+        for (int i = 1; i <= fileCount && !hasLost; i++) {
             List<String> stringBoard = readAllLines(args[0] + lvl + i + txt);
             UI ui = new UI(stringBoard, character);
             ui.updateBoard(stringBoard);
-            while(ui.isActive()){
+            while(ui.isActive() & !ui.hasLost()){
                 String play = scanner.nextLine();
                 if(play.length() == 1) {
                     char move = play.charAt(0);
                     ui.notifyObserver(move);
                 }
             }
+            hasLost = ui.hasLost();
         }
     }
 

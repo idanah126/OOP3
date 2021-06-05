@@ -8,4 +8,5 @@ public interface BoardObserver {
     void updateCombatInfo(String combatInfo);
     void updateLevelUp(String levelUp);
     boolean isActive();
+    boolean hasLost();
 }

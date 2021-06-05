@@ -50,4 +50,9 @@ public class UI implements BoardObserver, UIObservable {
     public boolean isActive() {
         return boardController.isActive();
     }
+
+    @Override
+    public boolean hasLost() {
+        return boardController.hasLost();
+    }
 }

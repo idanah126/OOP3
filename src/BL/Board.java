@@ -109,6 +109,11 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
         return active;
     }
 
+    @Override
+    public boolean hasLost() {
+        return lost;
+    }
+
     public void turn(char c){
         player.playerTurn(c);
         for (Enemy enemy: enemyList) {
