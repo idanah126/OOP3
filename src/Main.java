@@ -30,8 +30,11 @@ public class Main {
             UI ui = new UI(stringBoard, character);
             ui.updateBoard(stringBoard);
             while(ui.isActive()){
-                char move = scanner.nextLine().charAt(0);
-                ui.notifyObserver(move);
+                String play = scanner.nextLine();
+                if(play.length() == 1) {
+                    char move = play.charAt(0);
+                    ui.notifyObserver(move);
+                }
             }
         }
     }
