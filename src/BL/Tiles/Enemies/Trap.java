@@ -1,6 +1,7 @@
 package BL.Tiles.Enemies;
 
 import BL.Board;
+import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Empty;
 import BL.Tiles.Enemy;
@@ -15,9 +16,9 @@ public class Trap extends Enemy {
     protected boolean visible;
     protected char originalChar;
 
-    public Trap(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player, int visibilityTime, int invisibilityTime)
+    public Trap(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, int visibilityTime, int invisibilityTime)
     {
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue, player);
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue);
         this.originalChar = tile;
         this.visibilityTime = visibilityTime;
         this.invisibilityTime = invisibilityTime;
@@ -25,12 +26,21 @@ public class Trap extends Enemy {
         visible = true;
     }
 
-    public void setVisibility(boolean newValue) {
-        this.visible = newValue;
-        if (this.visible) {
-            this.setChar(this.originalChar);
+    public String toString(){
+        if(visible) {
+            return ConsoleColors.YELLOW + super.toString() + ConsoleColors.RESET;
+        }
+        else{
+            return ConsoleColors.BLACK + super.toString() + ConsoleColors.RESET;
+        }
+    }
+
+    private void setVisibility(boolean newValue) {
+        visible = newValue;
+        if (visible) {
+            setChar(originalChar);
         } else {
-            this.setChar('.');
+            setChar('.');
         }
     }
 
@@ -42,21 +52,21 @@ public class Trap extends Enemy {
                 "Visible: " + visible;
     }
 
-    public void visibleState() {
-        this.setVisibility(ticksCount < visibilityTime);
+    public void visibleState(Player player) {
+        setVisibility(ticksCount < visibilityTime);
         if(ticksCount == (visibilityTime + invisibilityTime))
             ticksCount=0;
         else
             ticksCount++;
         if (MathOperations.getDistance(x,y,player.getX(),player.getY()) < 2)
-            this.attack(player);
+            attack(player);
     }
 
     public void setTicksCount(int ticksCount) {this.ticksCount=ticksCount;}
 
     @Override
-    public void enemyTurn() {
-        visibleState();
+    public void enemyTurn(Player player, Board board) {
+        visibleState(player);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package BL.Tiles.Players;
 
-import BL.Board;
+import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Player;
@@ -16,8 +16,8 @@ public class Mage extends Player {
     private final int hitsCount;
     private final int abilityRange;
 
-    public Mage(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList, int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange){
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, enemyList);
+    public Mage(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange){
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
         this.manaPool = manaPool;
         currentMana = manaPool / 4;
         this.manaCost = manaCost;
@@ -25,6 +25,10 @@ public class Mage extends Player {
         this.hitsCount = hitsCount;
         this.abilityRange = abilityRange;
         castName = "Blizzard";
+    }
+
+    public String toString(){
+        return ConsoleColors.RED + super.toString() + ConsoleColors.RESET;
     }
 
     @Override

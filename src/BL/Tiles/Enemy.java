@@ -8,10 +8,9 @@ public abstract class Enemy extends Unit {
     public int experienceValue; //The amount of experience gained by defeating this enemy.
     protected Player player;
 
-    public Enemy(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player){
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints);
+    public Enemy(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue){
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
         this.experienceValue = experienceValue;
-        this.player = player;
     }
 
     public  String description() {
@@ -28,7 +27,7 @@ public abstract class Enemy extends Unit {
         attack(player);
     }
 
-    public abstract void enemyTurn();
+    public abstract void enemyTurn(Player player, Board board);
 
     @Override
     public void notifyObserverLevelUp(String levelUp) {}

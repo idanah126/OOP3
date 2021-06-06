@@ -7,79 +7,77 @@ import BL.Tiles.Players.Mage;
 import BL.Tiles.Players.Rogue;
 import BL.Tiles.Players.Warrior;
 
-import java.util.List;
-
 public class UnitList {
 
-    public static Player getPlayer(char c, int x, int y, List<Enemy> enemyList, Board board) {
+    public static Player getPlayer(char c, int x, int y) {
         if (c == 'j') {
-            return new Warrior(board, '@', x, y, "Jon Snow", 300, 30, 4, enemyList, 3);
+            return new Warrior('@', x, y, ConsoleColors.BLUE + "Jon Snow" + ConsoleColors.RESET, 300, 30, 4, 3);
         }
         else if (c == 'h') {
-            return new Warrior(board, '@', x, y, "The Hound", 400, 20, 6, enemyList, 5);
+            return new Warrior('@', x, y, ConsoleColors.BLUE + "The Hound" + ConsoleColors.RESET, 400, 20, 6, 5);
         }
         else if (c == 'm') {
-            return new Mage(board, '@', x, y, "Melisandre", 100, 5, 1, enemyList, 300, 30, 15, 5, 6);
+            return new Mage('@', x, y, ConsoleColors.RED + "Melisandre" + ConsoleColors.RESET, 100, 5, 1, 300, 30, 15, 5, 6);
         }
         else if (c == 't') {
-            return new Mage(board, '@', x, y, "Thoros of Myr", 250, 25, 4, enemyList, 150, 20, 20, 3, 4);
+            return new Mage('@', x, y, ConsoleColors.RED + "Thoros of Myr" + ConsoleColors.RESET, 250, 25, 4, 150, 20, 20, 3, 4);
         }
         else if (c == 'a') {
-            return new Rogue(board, '@', x, y, "Arya Stark", 150, 40, 2, enemyList, 20);
+            return new Rogue('@', x, y, ConsoleColors.PURPLE + "Arya Stark" + ConsoleColors.RESET, 150, 40, 2, 20);
         }
         else if (c == 'b') {
-            return new Rogue(board, '@', x, y, "Bronn", 250, 35, 3, enemyList, 50);
+            return new Rogue('@', x, y, ConsoleColors.PURPLE + "Bronn" + ConsoleColors.RESET, 250, 35, 3, 50);
         }
         else {
             throw new IllegalArgumentException("not legal char");
         }
     }
 
-    public static Trap getTrap(char c, int x, int y, Player player, Board board){
+    public static Trap getTrap(char c, int x, int y){
         if(c == 'B'){
-            return new Trap(board, 'B', x, y, "Bonus Trap", 1, 1, 1, 250, player, 1,  5);
+            return new Trap('B', x, y, ConsoleColors.YELLOW + "Bonus Trap" + ConsoleColors.RESET, 1, 1, 1, 250, 1,  5);
         }
         else if(c == 'Q'){
-            return new Trap(board, 'Q', x, y, "Queen's Trap", 250, 50, 10, 100, player, 3, 7);
+            return new Trap('Q', x, y, ConsoleColors.YELLOW + "Queen's Trap" + ConsoleColors.RESET, 250, 50, 10, 100, 3, 7);
         }
         else if(c == 'D'){
-            return new Trap(board, 'D', x, y, "Death Trap", 500, 100, 20, 250, player, 1, 10);
+            return new Trap('D', x, y, ConsoleColors.YELLOW + "Death Trap" + ConsoleColors.RESET, 500, 100, 20, 250, 1, 10);
         }
         else{
             throw new IllegalArgumentException("not legal char");
         }
     }
 
-    public static Monster getMonster(char c, int x, int y, Player player, Board board){
+    public static Monster getMonster(char c, int x, int y){
         if (c == 's') {
-            return new Monster(board, 's', x, y, "Lannister Solider", 80, 8, 3, 25, player, 3);
+            return new Monster('s', x, y, ConsoleColors.GREEN + "Lannister Solider" + ConsoleColors.RESET, 80, 8, 3, 25, 3);
         }
         else if (c == 'k') {
-            return new Monster(board, 'k', x, y, "Lannister Knight", 200, 14, 8, 50, player, 4);
+            return new Monster('k', x, y, ConsoleColors.GREEN + "Lannister Knight" + ConsoleColors.RESET, 200, 14, 8, 50, 4);
         }
         else if (c == 'q') {
-            return new Monster(board, 'q', x, y, "Queen's Guard", 400, 20, 15, 100, player, 5);
+            return new Monster('q', x, y, ConsoleColors.GREEN + "Queen's Guard" + ConsoleColors.RESET, 400, 20, 15, 100, 5);
         }
         else if (c == 'z') {
-            return new Monster(board, 'z', x, y, "Wright", 600, 30, 15, 100, player, 3);
+            return new Monster('z', x, y, ConsoleColors.GREEN + "Wright" + ConsoleColors.RESET, 600, 30, 15, 100, 3);
         }
         else if (c == 'b') {
-            return new Monster(board, 'b', x, y, "Bear-Wright", 1000, 75, 30, 250, player, 4);
+            return new Monster('b', x, y, ConsoleColors.GREEN + "Bear-Wright" + ConsoleColors.RESET, 1000, 75, 30, 250, 4);
         }
         else if (c == 'g') {
-            return new Monster(board, 'g', x, y, "Giant-Wright", 1500, 100, 40, 500, player, 5);
+            return new Monster('g', x, y, ConsoleColors.GREEN + "Giant-Wright" + ConsoleColors.RESET, 1500, 100, 40, 500, 5);
         }
         else if (c == 'w') {
-            return new Monster(board, 'w', x, y, "White Walker", 2000, 150, 50, 1000, player, 6);
+            return new Monster('w', x, y, ConsoleColors.GREEN + "White Walker" + ConsoleColors.RESET, 2000, 150, 50, 1000, 6);
         }
         else if (c == 'M') {
-            return new Monster(board, 'M', x, y, "The Mountain", 1000, 60, 25, 500, player, 6);
+            return new Monster('M', x, y, ConsoleColors.GREEN + "The Mountain" + ConsoleColors.RESET, 1000, 60, 25, 500, 6);
         }
         else if (c == 'C') {
-            return new Monster(board, 'C', x, y, "Queen Cersei", 100, 10, 10, 1000, player, 1);
+            return new Monster('C', x, y, ConsoleColors.GREEN + "Queen Cersei" + ConsoleColors.RESET, 100, 10, 10, 1000, 1);
         }
         else if (c == 'K') {
-            return new Monster(board, 'K', x, y, "Knight's King", 5000, 300, 150, 5000, player, 8);
+            return new Monster('K', x, y, ConsoleColors.GREEN + "Knight's King" + ConsoleColors.RESET, 5000, 300, 150, 5000, 8);
         }
         else {
             throw new IllegalArgumentException("not legal char");

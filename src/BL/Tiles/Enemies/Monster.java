@@ -1,6 +1,7 @@
 package BL.Tiles.Enemies;
 
 import BL.Board;
+import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Mover;
@@ -12,9 +13,13 @@ public class Monster extends Enemy implements Mover {
 
     protected int visionRange;
 
-    public Monster(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, Player player, int visionRange) {
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue, player);
+    public Monster(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int experienceValue, int visionRange) {
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints, experienceValue);
         this.visionRange = visionRange;
+    }
+
+    public String toString(){
+        return ConsoleColors.GREEN + super.toString() + ConsoleColors.RESET;
     }
 
     @Override
@@ -22,8 +27,8 @@ public class Monster extends Enemy implements Mover {
         return super.description() + "Vision range: " + visionRange;
     }
     @Override
-    public void enemyTurn() {
-        moveMonster(board);
+    public void enemyTurn( Player player, Board board) {
+        moveMonster(player, board);
     }
 
     public void accept(Visitor v) {
@@ -41,7 +46,7 @@ public class Monster extends Enemy implements Mover {
             attack(player);
     }
 
-    public void moveMonster(Board board){
+    public void moveMonster(Player player, Board board){
         if (MathOperations.getDistance(x,y,player.getX(),player.getY()) < this.visionRange) {
             var dx = x - player.getX();
             var dy = y - player.getY();
@@ -51,15 +56,18 @@ public class Monster extends Enemy implements Mover {
                 } else {
                     moveDown((board));
                 }
-            } else {
+            }
+            else {
                 if (dy > 0) {
                     moveLeft(board);
-                } else {
+                }
+                else {
                     moveRight(board);
                 }
             }
-        } else {
-            this.moveMonsterRandom(board);
+        }
+        else {
+            moveMonsterRandom(board);
         }
     }
 

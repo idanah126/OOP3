@@ -16,29 +16,28 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
     private boolean active;
     private boolean lost;
     private BoardObserver boardController;
-    private List<Tile> board;
+    private final List<Tile> board;
     private Player player;
-    private List<Monster> monsterList;
-    private List<Trap> trapList;
-    private List<Enemy> enemyList;
+    private final List<Enemy> enemyList;
     private final int numOfRows;
     private final int numOfColumns;
 
-    public Board(List<String> lines, char c, BoardObserver boardController){
+    public Board(List<String> lines, Player player, BoardObserver boardController){
         lost = false;
         active = true;
         numOfRows = lines.size();
         numOfColumns = lines.get(0).length();
         enemyList = new LinkedList<>();
-        trapList = new LinkedList<>();
-        monsterList = new LinkedList<>();
         board = new LinkedList<>();
 
         // Find the player before all other tiles.
         for (int i = 0; i < lines.size(); i++) {
             int y = lines.get(i).indexOf('@');
-            if (y != -1)
-                player = UnitList.getPlayer(c, i, y, enemyList, this);
+            if (y != -1) {
+                this.player = player;
+                player.setX(i);
+                player.setY(y);
+            }
         }
 
         int index = 0;
@@ -54,20 +53,21 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
                     board.add(player);
                 }
                 else if(line.charAt(i) == 'B' | line.charAt(i) == 'Q' | line.charAt(i) == 'D'){
-                    Trap trap = UnitList.getTrap(line.charAt(i), index, i, player, this);
-                    trapList.add(trap);
+                    Trap trap = UnitList.getTrap(line.charAt(i), index, i);
+                    trap.initialize(this);
                     enemyList.add(trap);
                     board.add(trap);
                 }
                 else{
-                    Monster monster = UnitList.getMonster(line.charAt(i), index, i, player, this);
-                    monsterList.add(monster);
+                    Monster monster = UnitList.getMonster(line.charAt(i), index, i);
+                    monster.initialize(this);
                     enemyList.add(monster);
                     board.add(monster);
                 }
             }
             index += 1;
         }
+        player.initialize(this, enemyList);
         addObserver(boardController);
     }
 
@@ -114,14 +114,34 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
         return lost;
     }
 
+//    public void turn(char c){
+//        player.playerTurn(c);
+//        for (Enemy enemy: enemyList) {
+//            enemy.enemyTurn();
+//        }
+//        updateBoard();
+//        notifyObserverBoard(toListOfString(to2dArray()));
+//        if(player.dead()){
+//            notifyObserverCombatInfo("the player is dead");
+//        }
+//        else {
+//            notifyObserverStats(player.description());
+//        }
+//    }
+
     public void turn(char c){
-        player.playerTurn(c);
+        player.playerTurn(c, this);
         for (Enemy enemy: enemyList) {
-            enemy.enemyTurn();
+            enemy.enemyTurn(player, this);
         }
         updateBoard();
         notifyObserverBoard(toListOfString(to2dArray()));
-        player.notifyObserverStats(player.description());
+        if(player.dead()){
+            notifyObserverCombatInfo("the player is dead");
+        }
+        else {
+            notifyObserverStats(player.description());
+        }
     }
 
     public void updateBoard(){
@@ -156,15 +176,15 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
         return null;
     }
 
-    private char[][] to2dArray(){
-        char[][] boardChar = new char[numOfRows][numOfColumns];
+    private String[][] to2dArray(){
+        String[][] boardChar = new String[numOfRows][numOfColumns];
         for (Tile tile: board) {
-            boardChar[tile.getX()][tile.getY()] = tile.getTile();
+            boardChar[tile.getX()][tile.getY()] = tile.toString();
         }
         return boardChar;
     }
 
-    public List<String> toListOfString(char[][] board){
+    public List<String> toListOfString(String[][] board){
         List<String> lines = new LinkedList<>();
         for (int i = 0; i < numOfRows; i++) {
             String s = "";

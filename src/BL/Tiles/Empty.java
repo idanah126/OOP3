@@ -1,14 +1,16 @@
 package BL.Tiles;
 
+import BL.ConsoleColors;
 import BL.VisitorPattern.*;
 
 public class Empty extends Tile {
 
-    private int x;
-    private int y;
-
     public Empty(int x, int y){
         super('.' , x, y);
+    }
+
+    public String toString(){
+        return ConsoleColors.BLACK + super.toString() + ConsoleColors.RESET;
     }
 
     @Override

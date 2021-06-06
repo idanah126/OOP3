@@ -5,6 +5,8 @@ import BL.ObserverPattern.BoardObservable;
 import BL.ObserverPattern.BoardObserver;
 import BL.ObserverPattern.UIObservable;
 import BL.ObserverPattern.UIObserver;
+import BL.Tiles.Player;
+
 import java.util.List;
 
 public class BoardController implements UIObserver, UIObservable, BoardObserver, BoardObservable {
@@ -12,8 +14,8 @@ public class BoardController implements UIObserver, UIObservable, BoardObserver,
     private BoardObserver ui;
     private UIObserver board;
 
-    public BoardController(List<String> lines,char c, UI ui){
-        board = new Board(lines, c, this);
+    public BoardController(List<String> lines, Player player, UI ui){
+        board = new Board(lines, player, this);
         addObserver(ui);
         addObserver(board);
     }

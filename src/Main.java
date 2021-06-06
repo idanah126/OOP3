@@ -1,3 +1,6 @@
+import BL.ConsoleColors;
+import BL.Tiles.Player;
+import BL.UnitList;
 import PL.UI;
 
 import java.io.File;
@@ -18,18 +21,19 @@ public class Main {
         String txt = ".txt";
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose your character");
-        System.out.println("Warriors:");
+        System.out.println(ConsoleColors.BLUE + "Warriors:");
         System.out.println("j for Jon Snow, h for The Hound");
-        System.out.println("Mages:");
+        System.out.println(ConsoleColors.RED + "Mages:");
         System.out.println("m for Melisandre, t for Thoros of Myr");
-        System.out.println("Rogues:");
-        System.out.println("a for Arya Stark, b for Bronn");
+        System.out.println(ConsoleColors.PURPLE + "Rogues:");
+        System.out.println("a for Arya Stark, b for Bronn" + ConsoleColors.RESET);
         char character = scanner.nextLine().charAt(0);
+        Player player = UnitList.getPlayer(character, 0, 0);
         boolean hasLost = false;
         for (int i = 1; i <= fileCount && !hasLost; i++) {
             List<String> stringBoard = readAllLines(args[0] + lvl + i + txt);
-            UI ui = new UI(stringBoard, character);
-            ui.updateBoard(stringBoard);
+            UI ui = new UI(stringBoard, player);
+            System.out.println("Press q to start play");
             while(ui.isActive() & !ui.hasLost()){
                 String play = scanner.nextLine();
                 if(play.length() == 1) {

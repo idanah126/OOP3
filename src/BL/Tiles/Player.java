@@ -12,10 +12,14 @@ public abstract class Player extends Unit implements Mover {
     protected List<Enemy> enemyList;
     protected String castName;
 
-    public Player(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList) {
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints);
+    public Player(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints) {
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
         experience = 0;
         playerLevel = 1;
+    }
+
+    public void initialize(Board board, List<Enemy> enemyList) {
+        super.initialize(board);
         this.enemyList = enemyList;
     }
 
@@ -68,7 +72,7 @@ public abstract class Player extends Unit implements Mover {
 
     public abstract void cast();
 
-    public void playerTurn(char c){
+    public void playerTurn(char c, Board board){
         if(c == 'e'){
             cast();
         }

@@ -14,14 +14,16 @@ abstract public class Unit extends Tile implements Visitor, Visited, UnitObserva
     protected int attackPoints;
     public int defensePoints;
 
-    public Unit(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints) {
+    public Unit(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints) {
         super(tile, x, y);
         this.name = name;
         this.healthPool = healthPool;
         healthAmount = healthPool;
         this.attackPoints = attackPoints;
         this.defensePoints = defensePoints;
-        //this.board= board;
+    }
+
+    public void initialize(Board board){
         addObserver(board);
     }
 

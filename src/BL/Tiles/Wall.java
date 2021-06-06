@@ -4,11 +4,12 @@ import BL.VisitorPattern.*;
 
 public class Wall extends Tile {
 
-    private int x;
-    private int y;
-
     public Wall(int x, int y){
         super('#' , x, y);
+    }
+
+    public String toString(){
+        return super.toString();
     }
 
     @Override

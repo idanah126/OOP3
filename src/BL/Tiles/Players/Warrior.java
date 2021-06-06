@@ -1,6 +1,6 @@
 package BL.Tiles.Players;
 
-import BL.Board;
+import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Player;
@@ -12,11 +12,15 @@ public class Warrior extends Player {
     private final int abilityCoolDown;
     private int remainingCoolDown;
 
-    public Warrior(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList, int abilityCoolDown){
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, enemyList);
+    public Warrior(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int abilityCoolDown){
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
         this.abilityCoolDown = abilityCoolDown;
         remainingCoolDown = 0;
         castName = "Avenger's Shield";
+    }
+
+    public String toString(){
+        return ConsoleColors.BLUE + super.toString() + ConsoleColors.RESET;
     }
 
     @Override

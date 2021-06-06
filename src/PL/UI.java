@@ -3,14 +3,16 @@ package PL;
 import BL.ObserverPattern.BoardObserver;
 import BL.ObserverPattern.UIObservable;
 import BL.ObserverPattern.UIObserver;
+import BL.Tiles.Player;
+
 import java.util.List;
 
 public class UI implements BoardObserver, UIObservable {
 
     UIObserver boardController;
 
-    public UI(List<String> lines, char c){
-        boardController = new BoardController(lines, c, this);
+    public UI(List<String> lines, Player player){
+        boardController = new BoardController(lines, player, this);
         addObserver(boardController);
     }
 

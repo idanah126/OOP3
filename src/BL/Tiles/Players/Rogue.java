@@ -1,6 +1,6 @@
 package BL.Tiles.Players;
 
-import BL.Board;
+import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Player;
@@ -12,11 +12,15 @@ public class Rogue extends Player {
     private final int cost;
     private int currentEnergy;
 
-    public Rogue(Board board, char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, List<Enemy> enemyList, int cost) {
-        super(board, tile, x, y, name, healthPool, attackPoints, defensePoints, enemyList);
+    public Rogue(char tile, int x, int y, String name, int healthPool, int attackPoints, int defensePoints, int cost) {
+        super(tile, x, y, name, healthPool, attackPoints, defensePoints);
         this.cost = cost;
         currentEnergy = 100;
         castName = "Fan of Knives";
+    }
+
+    public String toString(){
+        return ConsoleColors.PURPLE + super.toString() + ConsoleColors.RESET;
     }
 
     @Override
