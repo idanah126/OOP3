@@ -41,11 +41,6 @@ public class Monster extends Enemy implements Mover {
     @Override
     public void visit(Wall wall) { }
 
-    public void visit(Player player) {
-        if(!player.dead())
-            attack(player);
-    }
-
     public void moveMonster(Player player, Board board){
         if (MathOperations.getDistance(x,y,player.getX(),player.getY()) < this.visionRange) {
             var dx = x - player.getX();
@@ -71,7 +66,7 @@ public class Monster extends Enemy implements Mover {
         }
     }
 
-    public void moveMonsterRandom(Board board){
+    private void moveMonsterRandom(Board board){
         int num = MathOperations.random(3);
         if(num == 1)
             moveLeft(board);

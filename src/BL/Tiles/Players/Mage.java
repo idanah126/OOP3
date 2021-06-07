@@ -5,8 +5,6 @@ import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Player;
 
-import java.util.List;
-
 public class Mage extends Player {
 
     private int manaPool;
@@ -61,8 +59,9 @@ public class Mage extends Player {
                     notifyObserverCombatInfo(name + " attacks " + enemy.getName() + "\n" + description() + "\n" + enemy.description());
                     int defenceRoll = MathOperations.random(enemy.defensePoints);
                     if(spellPower > defenceRoll) {
-                        notifyObserverCombatInfo("spell power: " + spellPower + ". defence roll: " + defenceRoll + ". damage taken: " + spellPower);
-                        enemy.healthAmount -= spellPower;
+                        int damage = spellPower - defenceRoll;
+                        notifyObserverCombatInfo("spell power: " + spellPower + ". defence roll: " + defenceRoll + ". damage taken: " + damage);
+                        enemy.healthAmount -= damage;
                         if (enemy.dead()) {
                             notifyObserverCombatInfo("the enemy has died. experience gained: " + enemy.experienceValue);
                             experience += enemy.experienceValue;

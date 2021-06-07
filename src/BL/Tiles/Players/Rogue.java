@@ -45,8 +45,9 @@ public class Rogue extends Player {
                     notifyObserverCombatInfo(name + " attacks " + enemy.getName() + "\n" + description() + "\n" + enemy.description());
                     int defenceRoll = MathOperations.random(enemy.defensePoints);
                     if(attackPoints > defenceRoll) {
-                        notifyObserverCombatInfo("attack points: " + attackPoints + ". defence roll: " + defenceRoll + ". damage taken: " + attackPoints);
-                        enemy.healthAmount -= attackPoints;
+                        int damage = attackPoints - defenceRoll;
+                        notifyObserverCombatInfo("attack points: " + attackPoints + ". defence roll: " + defenceRoll + ". damage taken: " + damage);
+                        enemy.healthAmount -= damage;
                         if(enemy.dead()){
                             notifyObserverCombatInfo("the enemy has died. experience gained: " + enemy.experienceValue);
                             experience += enemy.experienceValue;

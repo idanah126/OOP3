@@ -13,6 +13,10 @@ public abstract class Enemy extends Unit {
         this.experienceValue = experienceValue;
     }
 
+    public void initialize(Player player){
+        this.player = player;
+    }
+
     public  String description() {
         return super.description() + " Experience value: " + experienceValue + ", ";
     }
@@ -24,7 +28,9 @@ public abstract class Enemy extends Unit {
     public void visit(Enemy enemy){}
 
     public void visit(Player player){
-        attack(player);
+        if(!player.dead()) {
+            attack(player);
+        }
     }
 
     public abstract void enemyTurn(Player player, Board board);

@@ -3,6 +3,7 @@ package BL;
 import BL.Tiles.*;
 import BL.Tiles.Enemies.Monster;
 import BL.Tiles.Enemies.Trap;
+import BL.Tiles.Players.Hunter;
 import BL.Tiles.Players.Mage;
 import BL.Tiles.Players.Rogue;
 import BL.Tiles.Players.Warrior;
@@ -27,6 +28,9 @@ public class UnitList {
         }
         else if (c == 'b') {
             return new Rogue('@', x, y, ConsoleColors.PURPLE + "Bronn" + ConsoleColors.RESET, 250, 35, 3, 50);
+        }
+        else if (c == 'y') {
+            return new Hunter('@', x, y, ConsoleColors.CYAN_BOLD + "Ygritte" + ConsoleColors.RESET, 220, 30, 2, 6);
         }
         else {
             throw new IllegalArgumentException("not legal char");

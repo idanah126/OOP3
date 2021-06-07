@@ -26,14 +26,17 @@ public class Main {
         System.out.println(ConsoleColors.RED + "Mages:");
         System.out.println("m for Melisandre, t for Thoros of Myr");
         System.out.println(ConsoleColors.PURPLE + "Rogues:");
-        System.out.println("a for Arya Stark, b for Bronn" + ConsoleColors.RESET);
+        System.out.println("a for Arya Stark, b for Bronn");
+        System.out.println(ConsoleColors.CYAN_BOLD + "Hunters:");
+        System.out.println("y for Ygritte" + ConsoleColors.RESET);
         char character = scanner.nextLine().charAt(0);
         Player player = UnitList.getPlayer(character, 0, 0);
         boolean hasLost = false;
         for (int i = 1; i <= fileCount && !hasLost; i++) {
             List<String> stringBoard = readAllLines(args[0] + lvl + i + txt);
             UI ui = new UI(stringBoard, player);
-            System.out.println("Press q to start play");
+            System.out.println("Level " + i);
+            System.out.println("Press q to start");
             while(ui.isActive() & !ui.hasLost()){
                 String play = scanner.nextLine();
                 if(play.length() == 1) {

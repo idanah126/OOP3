@@ -5,7 +5,7 @@ import java.util.List;
 import BL.Board;
 import BL.VisitorPattern.*;
 
-public abstract class Player extends Unit implements Mover {
+public abstract class Player extends Unit implements Mover, HeroicUnit {
 
     protected int experience;
     protected int playerLevel;
