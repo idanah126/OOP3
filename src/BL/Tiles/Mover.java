@@ -3,8 +3,8 @@ package BL.Tiles;
 import BL.Board;
 
 public interface Mover {
-    void moveUp(Board board);
-    void moveDown(Board board);
-    void moveLeft(Board board);
-    void moveRight(Board board);
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
 }

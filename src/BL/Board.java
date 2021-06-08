@@ -54,13 +54,13 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
                 }
                 else if(line.charAt(i) == 'B' | line.charAt(i) == 'Q' | line.charAt(i) == 'D'){
                     Trap trap = UnitList.getTrap(line.charAt(i), index, i);
-                    trap.initialize(this);
+                    trap.initialize(this, player);
                     enemyList.add(trap);
                     board.add(trap);
                 }
                 else{
                     Monster monster = UnitList.getMonster(line.charAt(i), index, i);
-                    monster.initialize(this);
+                    monster.initialize(this, player);
                     enemyList.add(monster);
                     board.add(monster);
                 }
@@ -114,25 +114,10 @@ public class Board implements UIObserver, BoardObservable, UnitObserver {
         return lost;
     }
 
-//    public void turn(char c){
-//        player.playerTurn(c);
-//        for (Enemy enemy: enemyList) {
-//            enemy.enemyTurn();
-//        }
-//        updateBoard();
-//        notifyObserverBoard(toListOfString(to2dArray()));
-//        if(player.dead()){
-//            notifyObserverCombatInfo("the player is dead");
-//        }
-//        else {
-//            notifyObserverStats(player.description());
-//        }
-//    }
-
     public void turn(char c){
-        player.playerTurn(c, this);
+        player.playerTurn(c);
         for (Enemy enemy: enemyList) {
-            enemy.enemyTurn(player, this);
+            enemy.enemyTurn();
         }
         updateBoard();
         notifyObserverBoard(toListOfString(to2dArray()));

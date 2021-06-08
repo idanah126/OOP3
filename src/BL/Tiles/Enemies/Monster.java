@@ -1,11 +1,9 @@
 package BL.Tiles.Enemies;
 
-import BL.Board;
 import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Mover;
-import BL.Tiles.Player;
 import BL.Tiles.Wall;
 import BL.VisitorPattern.Visitor;
 
@@ -27,8 +25,8 @@ public class Monster extends Enemy implements Mover {
         return super.description() + "Vision range: " + visionRange;
     }
     @Override
-    public void enemyTurn( Player player, Board board) {
-        moveMonster(player, board);
+    public void enemyTurn() {
+        moveMonster();
     }
 
     public void accept(Visitor v) {
@@ -41,60 +39,60 @@ public class Monster extends Enemy implements Mover {
     @Override
     public void visit(Wall wall) { }
 
-    public void moveMonster(Player player, Board board){
-        if (MathOperations.getDistance(x,y,player.getX(),player.getY()) < this.visionRange) {
+    public void moveMonster(){
+        if (MathOperations.getDistance(x, y, player.getX(), player.getY()) < visionRange) {
             var dx = x - player.getX();
             var dy = y - player.getY();
             if (Math.abs(dx) > Math.abs(dy)) {
                 if (dx > 0) {
-                    moveUp(board);
+                    moveUp();
                 } else {
-                    moveDown((board));
+                    moveDown();
                 }
             }
             else {
                 if (dy > 0) {
-                    moveLeft(board);
+                    moveLeft();
                 }
                 else {
-                    moveRight(board);
+                    moveRight();
                 }
             }
         }
         else {
-            moveMonsterRandom(board);
+            moveMonsterRandom();
         }
     }
 
-    private void moveMonsterRandom(Board board){
+    protected void moveMonsterRandom(){
         int num = MathOperations.random(3);
         if(num == 1)
-            moveLeft(board);
+            moveLeft();
         else if (num == 2)
-            moveRight(board);
+            moveRight();
         else if (num == 3)
-            moveDown(board);
+            moveDown();
         else
-            moveUp(board);
+            moveUp();
     }
 
     @Override
-    public void moveUp(Board board) {
+    public void moveUp() {
         visit(board.getTile(x - 1, y));
     }
 
     @Override
-    public void moveDown(Board board) {
+    public void moveDown() {
         visit(board.getTile(x + 1, y));
     }
 
     @Override
-    public void moveLeft(Board board) {
+    public void moveLeft() {
         visit(board.getTile(x, y - 1));
     }
 
     @Override
-    public void moveRight(Board board) {
+    public void moveRight() {
         visit(board.getTile(x, y + 1));
     }
 

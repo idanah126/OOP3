@@ -7,7 +7,7 @@ import BL.Tiles.Player;
 
 public class Hunter extends Player {
 
-    private int range;
+    private final int range;
     private int arrowsCount;
     private int ticksCount;
 

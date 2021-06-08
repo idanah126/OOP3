@@ -1,6 +1,7 @@
 package BL;
 
 import BL.Tiles.*;
+import BL.Tiles.Enemies.Boss;
 import BL.Tiles.Enemies.Monster;
 import BL.Tiles.Enemies.Trap;
 import BL.Tiles.Players.Hunter;
@@ -75,13 +76,13 @@ public class UnitList {
             return new Monster('w', x, y, ConsoleColors.GREEN + "White Walker" + ConsoleColors.RESET, 2000, 150, 50, 1000, 6);
         }
         else if (c == 'M') {
-            return new Monster('M', x, y, ConsoleColors.GREEN + "The Mountain" + ConsoleColors.RESET, 1000, 60, 25, 500, 6);
+            return new Boss('M', x, y, ConsoleColors.GREEN + "The Mountain" + ConsoleColors.RESET, 1000, 60, 25, 500, 6, 5);
         }
         else if (c == 'C') {
-            return new Monster('C', x, y, ConsoleColors.GREEN + "Queen Cersei" + ConsoleColors.RESET, 100, 10, 10, 1000, 1);
+            return new Boss('C', x, y, ConsoleColors.GREEN + "Queen Cersei" + ConsoleColors.RESET, 100, 10, 10, 1000, 1, 5);
         }
         else if (c == 'K') {
-            return new Monster('K', x, y, ConsoleColors.GREEN + "Knight's King" + ConsoleColors.RESET, 5000, 300, 150, 5000, 8);
+            return new Boss('K', x, y, ConsoleColors.GREEN + "Knight's King" + ConsoleColors.RESET, 5000, 300, 150, 5000, 8, 5);
         }
         else {
             throw new IllegalArgumentException("not legal char");

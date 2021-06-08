@@ -13,7 +13,8 @@ public abstract class Enemy extends Unit {
         this.experienceValue = experienceValue;
     }
 
-    public void initialize(Player player){
+    public void initialize(Board board ,Player player){
+        super.initialize(board);
         this.player = player;
     }
 
@@ -33,7 +34,7 @@ public abstract class Enemy extends Unit {
         }
     }
 
-    public abstract void enemyTurn(Player player, Board board);
+    public abstract void enemyTurn();
 
     @Override
     public void notifyObserverLevelUp(String levelUp) {}

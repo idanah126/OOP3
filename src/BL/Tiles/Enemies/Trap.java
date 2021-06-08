@@ -1,11 +1,9 @@
 package BL.Tiles.Enemies;
 
-import BL.Board;
 import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Empty;
 import BL.Tiles.Enemy;
-import BL.Tiles.Player;
 import BL.Tiles.Wall;
 
 public class Trap extends Enemy {
@@ -52,7 +50,7 @@ public class Trap extends Enemy {
                 "Visible: " + visible;
     }
 
-    public void visibleState(Player player) {
+    public void visibleState() {
         setVisibility(ticksCount < visibilityTime);
         if(ticksCount == (visibilityTime + invisibilityTime))
             ticksCount=0;
@@ -62,11 +60,9 @@ public class Trap extends Enemy {
             attack(player);
     }
 
-    public void setTicksCount(int ticksCount) {this.ticksCount=ticksCount;}
-
     @Override
-    public void enemyTurn(Player player, Board board) {
-        visibleState(player);
+    public void enemyTurn() {
+        visibleState();
     }
 
     @Override

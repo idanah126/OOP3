@@ -72,46 +72,46 @@ public abstract class Player extends Unit implements Mover, HeroicUnit {
 
     public abstract void cast();
 
-    public void playerTurn(char c, Board board){
+    public void playerTurn(char c){
         if(c == 'e'){
             cast();
         }
-        movePlayer(c, board);
+        movePlayer(c);
         turnUpdate();
     }
 
-    public void movePlayer(char c, Board board){
+    public void movePlayer(char c){
         if(c == 'w'){
-            moveUp(board);
+            moveUp();
         }
         else if(c == 'a'){
-            moveLeft(board);
+            moveLeft();
         }
         else if(c == 's'){
-            moveDown(board);
+            moveDown();
         }
         else if(c == 'd'){
-            moveRight(board);
+            moveRight();
         }
     }
 
     @Override
-    public void moveUp(Board board) {
+    public void moveUp() {
         visit(board.getTile(x - 1, y));
     }
 
     @Override
-    public void moveDown(Board board) {
+    public void moveDown() {
         visit(board.getTile(x + 1, y));
     }
 
     @Override
-    public void moveLeft(Board board) {
+    public void moveLeft() {
         visit(board.getTile(x, y - 1));
     }
 
     @Override
-    public void moveRight(Board board) {
+    public void moveRight() {
         visit(board.getTile(x, y + 1));
     }
 
