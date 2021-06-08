@@ -29,7 +29,11 @@ public class Main {
         System.out.println("a for Arya Stark, b for Bronn");
         System.out.println(ConsoleColors.CYAN_BOLD + "Hunters:");
         System.out.println("y for Ygritte" + ConsoleColors.RESET);
-        char character = scanner.nextLine().charAt(0);
+        String choosePlayer = scanner.nextLine();
+        while(choosePlayer.length() != 1 | (choosePlayer.charAt(0) != 'j' & choosePlayer.charAt(0) != 'h' & choosePlayer.charAt(0) != 'm' & choosePlayer.charAt(0) != 't' & choosePlayer.charAt(0) != 'a' & choosePlayer.charAt(0) != 'b' & choosePlayer.charAt(0) != 'y')){
+            choosePlayer = scanner.nextLine();
+        }
+        char character = choosePlayer.charAt(0);
         Player player = UnitList.getPlayer(character, 0, 0);
         boolean hasLost = false;
         for (int i = 1; i <= fileCount && !hasLost; i++) {
