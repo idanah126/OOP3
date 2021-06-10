@@ -3,9 +3,10 @@ package BL.Tiles;
 import java.util.List;
 
 import BL.Board;
+import BL.Tiles.BuilderPattern.PlayerBuilder;
 import BL.VisitorPattern.*;
 
-public abstract class Player extends Unit implements Mover, HeroicUnit {
+public abstract class Player extends Unit implements Mover, HeroicUnit, PlayerBuilder {
 
     protected int experience;
     protected int playerLevel;
