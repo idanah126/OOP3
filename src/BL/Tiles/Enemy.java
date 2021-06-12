@@ -1,7 +1,7 @@
 package BL.Tiles;
 
 import BL.Board;
-import BL.Tiles.BuilderPattern.EnemyBuilder;
+import BL.Tiles.InitializeUnit.EnemyBuilder;
 import BL.VisitorPattern.*;
 
 public abstract class Enemy extends Unit implements EnemyBuilder {

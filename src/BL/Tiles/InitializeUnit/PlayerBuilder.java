@@ -1,4 +1,4 @@
-package BL.Tiles.BuilderPattern;
+package BL.Tiles.InitializeUnit;
 
 import BL.Board;
 import BL.Tiles.Enemy;

@@ -3,7 +3,7 @@ package BL.Tiles;
 import java.util.List;
 
 import BL.Board;
-import BL.Tiles.BuilderPattern.PlayerBuilder;
+import BL.Tiles.InitializeUnit.PlayerBuilder;
 import BL.VisitorPattern.*;
 
 public abstract class Player extends Unit implements Mover, HeroicUnit, PlayerBuilder {
