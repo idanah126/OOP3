@@ -5,8 +5,6 @@ import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Player;
 
-import java.util.List;
-
 public class Rogue extends Player {
 
     private final int cost;

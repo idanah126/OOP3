@@ -4,7 +4,6 @@ import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Empty;
 import BL.Tiles.Enemy;
-import BL.Tiles.Wall;
 
 public class Trap extends Enemy {
 
@@ -66,17 +65,8 @@ public class Trap extends Enemy {
     }
 
     @Override
-    public void visit(Enemy enemy) {
-
-    }
-
-    @Override
     public void visit(Empty empty) {
 
     }
 
-    @Override
-    public void visit(Wall wall) {
-
-    }
 }

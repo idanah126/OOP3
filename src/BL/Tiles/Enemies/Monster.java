@@ -4,7 +4,6 @@ import BL.ConsoleColors;
 import BL.MathOperations;
 import BL.Tiles.Enemy;
 import BL.Tiles.Mover;
-import BL.Tiles.Wall;
 import BL.VisitorPattern.Visitor;
 
 public class Monster extends Enemy implements Mover {
@@ -32,12 +31,6 @@ public class Monster extends Enemy implements Mover {
     public void accept(Visitor v) {
         v.visit(this);
     }
-
-    @Override
-    public void visit(Enemy enemy) { }
-
-    @Override
-    public void visit(Wall wall) { }
 
     public void moveMonster(){
         if (MathOperations.getDistance(x, y, player.getX(), player.getY()) < visionRange) {
